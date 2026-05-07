@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI - Tekniken | Milo</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Hur fungerar AI och Maskininlärning?">
+</head>
+<body class="page-neutral">
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">AI <span>Revolutionen</span></a>
+            <button class="hamburger" aria-label="Meny">&#9776;</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Intro</a></li>
+                    <li><a href="historik.html">Historik</a></li>
+                    <li><a href="nutid.html">Nutid</a></li>
+                    <li><a href="tekniken.html" class="active">Tekniken</a></li>
+                    <li><a href="framtiden.html">Framtiden</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="lankar.html">Länkar</a></li>
+                    <li><a href="gastbok.html">Gästbok</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="reveal">
+            <h1>Hur Fungerar Tekniken?</h1>
+            <p>Säg "AI" och du menar ofta egentligen <strong>Maskininlärning</strong> (Machine Learning, ML). Istället för att människor skriver exakta regler (till exempel "om temperaturen är över 20 grader, gör X"), "tränar" vi istället systemen i att själva upptäcka mönster i data.</p>
+            
+            <img src="images/ai_tech_network.png" alt="Abstrakt bild av ett lysande neuralt nätverk" class="content-image">
+            
+            <div class="panel theme-neutral">
+                <h2>Artificiella Neurala Nätverk</h2>
+                <p>Den mest potenta formen av maskininlärning idag är de "Artificiella Neurala Nätverken" (Deep Learning). Dessa system är löst strukturerade med den mänskliga hjärnan som inspiration. De består av tusentals eller miljontals virtuella "neuroner" indelade i en rad olika lager.</p>
+                <ol style="margin-left: 2rem;">
+                    <li style="margin-bottom: 0.5rem"><strong>Input-lager:</strong> Data (exempelvis pixlar från en bild) matas in i systemet.</li>
+                    <li style="margin-bottom: 0.5rem"><strong>Gömda lager:</strong> Varje lager gör små matematiska beräkningar för att identifiera egenskaper (exempelvis linjer, böjar, och sedan kompletta former som ansikten).</li>
+                    <li><strong>Output-lager:</strong> Modellen ger en gissning (ex. "Detta är en bild på en katt").</li>
+                </ol>
+            </div>
+
+            <div class="panel theme-neutral">
+                <h2>Träningsprocessen (Backpropagation)</h2>
+                <p>När AI:n bygger sina algoritmer gör den först väldigt många misstag. Om nätverket gissar "hund" i början när det var en "katt", då jämförs gissningen med facit. Skilnaden mellan gissning och fel leder till ett "straffvärde". Via en algoritm känd som <em>Backpropagation</em> letar sig detta straffvärde bakåt i nätverket och justerar miljontals små vikter tills nätverket tvingas gissa i en lite bättre riktning i nästa runda.</p>
+                <p>Kör detta miljontals och åter miljontals gånger på stora datorkluster under veckor eller månader, och du får till slut en motor som har en "intuition" över svåra abstrakta problem.</p>
+            </div>
+            
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI Revolutionen - Slutprojekt i Webbutveckling.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI - Gästbok | Milo</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Lämna en kommentar i gästboken för AI Revolutionen-projektet.">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">AI <span>Revolutionen</span></a>
+            <button class="hamburger" aria-label="Meny">&#9776;</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Intro</a></li>
+                    <li><a href="historik.html">Historik</a></li>
+                    <li><a href="nutid.html">Nutid</a></li>
+                    <li><a href="tekniken.html">Tekniken</a></li>
+                    <li><a href="framtiden.html">Framtiden</a></li>
+                    <li><a href="media.html">Media</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="lankar.html">Länkar</a></li>
+                    <li><a href="gastbok.html" class="active">Gästbok</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="reveal">
+            <h1>Gästbok</h1>
+            <p>Dela dina tankar om AI med oss! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Din kommentar sparas säkert i vår SQL-databas)</p>
+
+            <div class="panel theme-neutral gb-form-panel reveal">
+                <h2>Lämna en kommentar</h2>
+                <form id="gb-form" novalidate>
+                    <div class="gb-field">
+                        <label for="gb-name">Ditt namn</label>
+                        <input type="text" id="gb-name" placeholder="Skriv ditt namn..." maxlength="60" required>
+                    </div>
+                    <div class="gb-field">
+                        <label for="gb-comment">Din kommentar</label>
+                        <textarea id="gb-comment" rows="4" placeholder="Vad tänker du om AI-revolutionen?" maxlength="500" required></textarea>
+                        <span class="gb-char-count"><span id="gb-count">0</span>/500</span>
+                    </div>
+                    <div id="gb-error" class="gb-error" aria-live="polite"></div>
+                    <div class="gb-actions">
+                        <button type="submit" id="gb-submit" class="gb-btn">
+                            <span>Posta kommentar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="gb-stats reveal">
+                <div class="gb-stat">
+                    <span id="gb-total-count">0</span>
+                    <label>Kommentarer</label>
+                </div>
+                <div class="gb-stat-divider"></div>
+                <div class="gb-stat">
+                    <span id="gb-latest-date">—</span>
+                    <label>Senaste inlägg</label>
+                </div>
+                <div class="gb-stat-divider"></div>
+                <button id="gb-clear-btn" class="gb-clear-btn" title="Rensa alla kommentarer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                    Rensa allt
+                </button>
+            </div>
+
+            <div id="gb-feed" class="gb-feed"></div>
+
+            <div id="gb-empty" class="gb-empty" style="display:none;">
+                <div class="gb-empty-icon">💬</div>
+                <p>Inga kommentarer ännu — bli den första!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI Revolutionen - Slutprojekt i Webbutveckling</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="gastbok.js"></script>
+</body>
+</html>
