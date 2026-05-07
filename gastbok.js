@@ -30,7 +30,10 @@ async function dbCreate(name, text) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, text })
         });
-        if (!response.ok) throw new Error('Failed to save to real DB');
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP ${response.status} ${response.statusText} - ${errorText}`);
+        }
         return await response.json();
     } catch (err) {
         console.error('Database create error:', err);
@@ -210,7 +213,7 @@ async function handleSubmit(e) {
             btn.querySelector('span').textContent = 'Posta kommentar';
         }, 2000);
     } catch (err) {
-        showError('Kunde inte ansluta till backend-servern. Är den igång?');
+        showError(`Serverfel: ${err.message}`);
     }
 }
 
