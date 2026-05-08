@@ -23,7 +23,8 @@ const config = {
     database: process.env.DB_NAME,
     options: {
         encrypt: true,
-        trustServerCertificate: false
+        trustServerCertificate: false,
+        connectTimeout: 30000
     }
 };
 
@@ -79,8 +80,24 @@ app.post('/api/comments', async (req, res) => {
     }
 });
 
+// Admin Login
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+        res.json({ success: true, message: 'Logged in as admin' });
+    } else {
+        res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+});
+
 app.delete('/api/comments/:id', async (req, res) => {
     const { id } = req.params;
+    const { password } = req.body; // In basic implementation, we can pass password in body for deletion
+
+    if (password !== process.env.ADMIN_PASSWORD) {
+        return res.status(403).json({ error: 'Unauthorized' });
+    }
+
     try {
         const db = await connectDB();
         await db.request()
@@ -93,6 +110,11 @@ app.delete('/api/comments/:id', async (req, res) => {
 });
 
 app.delete('/api/comments', async (req, res) => {
+    const { password } = req.body;
+    if (password !== process.env.ADMIN_PASSWORD) {
+        return res.status(403).json({ error: 'Unauthorized' });
+    }
+
     try {
         const db = await connectDB();
         await db.request().query('DELETE FROM Comments');
