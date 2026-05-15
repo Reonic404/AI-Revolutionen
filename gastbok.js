@@ -30,10 +30,7 @@ async function dbCreate(name, text) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, text })
         });
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP ${response.status} ${response.statusText} - ${errorText}`);
-        }
+        if (!response.ok) throw new Error('Failed to save to real DB');
         return await response.json();
     } catch (err) {
         console.error('Database create error:', err);
@@ -108,18 +105,9 @@ function createCommentCard(comment) {
                 <strong class="gb-card-name">${escapeHTML(name)}</strong>
                 <time class="gb-card-time" datetime="${ts}">${formatDate(ts)}</time>
             </div>
-            <button class="gb-delete-btn" data-id="${id}" title="Ta bort kommentar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-            </button>
         </div>
         <p class="gb-card-text">${escapeHTML(text)}</p>
     `;
-
-    card.querySelector('.gb-delete-btn').addEventListener('click', () => {
-        handleDelete(id, card);
-    });
 
     return card;
 }
@@ -213,23 +201,10 @@ async function handleSubmit(e) {
             btn.querySelector('span').textContent = 'Posta kommentar';
         }, 2000);
     } catch (err) {
-        showError(`Serverfel: ${err.message}`);
+        showError('Kunde inte ansluta till backend-servern. Är den igång?');
     }
 }
 
-async function handleDelete(id, cardEl) {
-    cardEl.classList.add('gb-card-exit');
-    cardEl.addEventListener('animationend', async () => {
-        await dbDelete(id);
-        cardEl.remove();
-        const remaining = await dbLoad();
-        if (remaining.length === 0) {
-            document.getElementById('gb-empty').style.display = 'flex';
-            document.getElementById('gb-feed').style.display = 'none';
-        }
-        updateStats(remaining);
-    }, { once: true });
-}
 
 function showError(msg) {
     const errorEl = document.getElementById('gb-error');
@@ -255,13 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('gb-count').textContent = commentInput.value.length;
     });
 
-    const clearBtn = document.getElementById('gb-clear-btn');
-    clearBtn.addEventListener('click', async () => {
-        if (confirm('Rensa hela SQL-databasen?')) {
-            await dbClear();
-            await renderFeed();
-        }
-    });
 
     renderFeed();
 });

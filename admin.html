@@ -151,6 +151,48 @@
             text-align: center;
             display: none;
         }
+
+        .admin-comment-list {
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        .admin-comment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #222;
+        }
+
+        .admin-comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-info {
+            flex: 1;
+        }
+
+        .comment-info strong {
+            color: #00ff00;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .comment-info p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin: 0;
+        }
+
+        .comment-info span {
+            font-size: 0.7rem;
+            color: #666;
+        }
     </style>
 </head>
 
@@ -199,6 +241,13 @@
                     <h3>Systemstatus</h3>
                     <p>Allt fungerar normalt.</p>
                     <p id="comment-count">Laddar statistik...</p>
+                </div>
+            </div>
+
+            <div id="comment-management" style="margin-top: 2rem;">
+                <h3>Hantera enskilda kommentarer</h3>
+                <div id="admin-comment-list" class="admin-comment-list">
+                    <!-- Kommentarer laddas här -->
                 </div>
             </div>
             

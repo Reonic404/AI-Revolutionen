@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearCommentsBtn = document.getElementById('clear-comments-btn');
     const commentCount = document.getElementById('comment-count');
     const logList = document.getElementById('log-list');
+    const adminCommentList = document.getElementById('admin-comment-list');
 
     // API URL - Adjust based on environment
     const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
@@ -90,9 +91,69 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_URL}/comments`);
             const comments = await response.json();
             commentCount.innerText = `Antal kommentarer i databasen: ${comments.length}`;
+            renderCommentList(comments);
         } catch (err) {
             commentCount.innerText = 'Kunde inte hämta statistik.';
         }
+    }
+
+    function renderCommentList(comments) {
+        adminCommentList.innerHTML = '';
+        if (comments.length === 0) {
+            adminCommentList.innerHTML = '<p style="padding: 1rem; color: #666;">Inga kommentarer att visa.</p>';
+            return;
+        }
+
+        comments.forEach(comment => {
+            const name = comment.Name || comment.name;
+            const text = comment.Text || comment.text;
+            const id = comment.Id || comment.id;
+            const ts = comment.Timestamp || comment.timestamp;
+
+            const item = document.createElement('div');
+            item.className = 'admin-comment-item';
+            item.innerHTML = `
+                <div class="comment-info">
+                    <strong>${escapeHTML(name)}</strong>
+                    <p>${escapeHTML(text)}</p>
+                    <span>${new Date(ts).toLocaleString('sv-SE')} (ID: ${id})</span>
+                </div>
+                <button class="btn-danger delete-comment-btn" data-id="${id}" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Radera</button>
+            `;
+
+            item.querySelector('.delete-comment-btn').addEventListener('click', async () => {
+                if (!confirm(`Vill du radera kommentaren från ${name}?`)) return;
+                await deleteIndividualComment(id, name);
+            });
+
+            adminCommentList.appendChild(item);
+        });
+    }
+
+    async function deleteIndividualComment(id, name) {
+        const password = sessionStorage.getItem('adminPassword');
+        try {
+            const response = await fetch(`${API_URL}/comments/${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+
+            if (response.ok) {
+                addLog(`[ACTION] Deleted comment ${id} from ${name}`);
+                updateStats();
+            } else {
+                alert('Kunde inte radera kommentaren.');
+                addLog(`[ERROR] Failed to delete comment ${id}`);
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+            addLog(`[ERROR] Server error during deletion of ${id}`);
+        }
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
     function addLog(msg) {

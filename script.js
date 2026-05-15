@@ -57,7 +57,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Cool Neural Network Background Effect
     initNeuralBackground();
+
+    // 5. Hidden Admin Access
+    initHiddenAdmin();
 });
+
+function initHiddenAdmin() {
+    let keys = '';
+    let timeout;
+    window.addEventListener('keydown', (e) => {
+        // Only track single characters (ignore Shift, Control, etc.)
+        if (e.key.length === 1) {
+            keys += e.key.toLowerCase();
+            clearTimeout(timeout);
+            
+            if (keys.endsWith('admin')) {
+                window.location.href = 'admin.html';
+            }
+
+            // Reset after 3 seconds of no typing
+            timeout = setTimeout(() => { keys = ''; }, 3000);
+            
+            if (keys.length > 10) keys = keys.substring(1);
+        }
+    });
+
+    // Method 2: Clicking copyright 5 times
+    const copyright = document.querySelector('footer p');
+    if (copyright) {
+        let clicks = 0;
+        copyright.style.cursor = 'default';
+        copyright.addEventListener('click', () => {
+            clicks++;
+            if (clicks >= 5) {
+                window.location.href = 'admin.html';
+            }
+            // Reset clicks after 2 seconds of inactivity
+            setTimeout(() => { clicks = 0; }, 2000);
+        });
+    }
+}
 
 function initNeuralBackground() {
     const canvas = document.createElement('canvas');
