@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Test-route för att se om servern lever
+// Test för att se om servern lever
 app.get("/", (req, res) => {
     res.send("API is running");
 });

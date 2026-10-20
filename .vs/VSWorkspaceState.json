@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\api",
+    "\\images"
   ],
+  "SelectedNode": "\\gastbok.js",
   "PreviewInSolutionExplorer": false
 }
